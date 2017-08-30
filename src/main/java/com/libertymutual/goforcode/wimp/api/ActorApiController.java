@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.libertymutual.goforcode.wimp.models.Actor;
+import com.libertymutual.goforcode.wimp.models.Movie;
 import com.libertymutual.goforcode.wimp.repositories.ActorRepository;
 
 
@@ -50,8 +51,12 @@ public class ActorApiController {
 	}
 	
 	@GetMapping("{id}")
-	public Actor getOne(@PathVariable long id) {
-		return actorRepo.findOne(id);
+	public Actor getOne(@PathVariable long id) throws StuffNotFoundException {
+		Actor actor = actorRepo.findOne(id);
+		if (actor == null) {
+			throw new StuffNotFoundException();
+		}
+		return actor;
 	}
 	
 	@DeleteMapping("{id}")
