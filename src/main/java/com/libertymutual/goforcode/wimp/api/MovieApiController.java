@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.libertymutual.goforcode.wimp.models.Actor;
 import com.libertymutual.goforcode.wimp.models.Movie;
 import com.libertymutual.goforcode.wimp.models.Movie;
+import com.libertymutual.goforcode.wimp.repositories.ActorRepository;
 import com.libertymutual.goforcode.wimp.repositories.MovieRepository;
 
 import javassist.NotFoundException;
@@ -23,9 +25,11 @@ import javassist.NotFoundException;
 public class MovieApiController {
 	
 	private MovieRepository movieRepo;
+	private ActorRepository actorRepo;
 	
-	public MovieApiController(MovieRepository movieRepo) {
+	public MovieApiController(MovieRepository movieRepo, ActorRepository actorRepo) {
 		this.movieRepo = movieRepo;
+		this.actorRepo = actorRepo;
 		
 		movieRepo.save(new Movie("Pirates", "Disney"));
 		movieRepo.save(new Movie("Pirates2", "Disney"));
@@ -56,6 +60,15 @@ public class MovieApiController {
 		} catch (EmptyResultDataAccessException erdae) {
 			return null;			
 		}
+	}
+	
+	@PostMapping("{movieId}/actors")
+	public Movie associateAnActor(@PathVariable long movieId, @RequestBody Actor actor) {
+		Movie movie = movieRepo.findOne(movieId);
+		actor = actorRepo.findOne(actor.getId());		
+		movie.addActor(actor);
+		movieRepo.save(movie);		
+		return movie;
 	}
 		
 	@PostMapping("")

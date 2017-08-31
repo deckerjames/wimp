@@ -1,37 +1,71 @@
 package com.libertymutual.goforcode.wimp.models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 @Entity
 public class Movie {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column(length = 300, nullable = false)
-	private String title;	
-	
+	private String title;
+
 	private Date releaseDate;
-	
+
 	private Long budget;
-	
+
 	@Column(length = 500, nullable = false)
 	private String distributor;
-	
-public Movie() {}
-	
+
+	public Movie() {
+	}
+
 	public Movie(String title, String distributor) {
 		this.title = title;
 		this.distributor = distributor;
 	}
-	
+
+	@ManyToMany
+	private List<Actor> actors;
+
+	public void addActor(Actor actor) {
+		if (actors == null) {
+			actors = new ArrayList<Actor>();
+		}
+		actors.add(actor);
+	}
+
+	/**
+	 * @return the actors
+	 */
+	public List<Actor> getActors() {
+		return actors;
+	}
+
+	/**
+	 * @param actors
+	 *            the actors to set
+	 */
+	public void setActors(List<Actor> actors) {
+		this.actors = actors;
+	}
+
 	/**
 	 * @return the id
 	 */
@@ -40,7 +74,8 @@ public Movie() {}
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
@@ -54,7 +89,8 @@ public Movie() {}
 	}
 
 	/**
-	 * @param title the title to set
+	 * @param title
+	 *            the title to set
 	 */
 	public void setTitle(String title) {
 		this.title = title;
@@ -68,7 +104,8 @@ public Movie() {}
 	}
 
 	/**
-	 * @param releaseDate the releaseDate to set
+	 * @param releaseDate
+	 *            the releaseDate to set
 	 */
 	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
@@ -82,7 +119,8 @@ public Movie() {}
 	}
 
 	/**
-	 * @param budget the budget to set
+	 * @param budget
+	 *            the budget to set
 	 */
 	public void setBudget(Long budget) {
 		this.budget = budget;
@@ -96,11 +134,11 @@ public Movie() {}
 	}
 
 	/**
-	 * @param distributor the distributor to set
+	 * @param distributor
+	 *            the distributor to set
 	 */
 	public void setDistributor(String distributor) {
 		this.distributor = distributor;
 	}
-	
-	
+
 }
