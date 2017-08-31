@@ -19,6 +19,7 @@ import com.libertymutual.goforcode.wimp.repositories.ActorRepository;
 import com.libertymutual.goforcode.wimp.repositories.MovieRepository;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import javassist.NotFoundException;
 
 
@@ -45,6 +46,7 @@ public class MovieApiController {
 		return movieRepo.findAll();	
 	}
 	
+	@ApiOperation(value = "endpoint for getting a movie")
 	@GetMapping("{id}")
 	public Movie getOne(@PathVariable long id) throws StuffNotFoundException {
 		Movie movie = movieRepo.findOne(id);
