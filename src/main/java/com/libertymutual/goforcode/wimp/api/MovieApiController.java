@@ -18,8 +18,11 @@ import com.libertymutual.goforcode.wimp.models.Movie;
 import com.libertymutual.goforcode.wimp.repositories.ActorRepository;
 import com.libertymutual.goforcode.wimp.repositories.MovieRepository;
 
+import io.swagger.annotations.Api;
 import javassist.NotFoundException;
 
+
+@Api(description="use this to get and create movies, and add actors to movies")
 @RestController
 @RequestMapping("/api/movies")
 public class MovieApiController {

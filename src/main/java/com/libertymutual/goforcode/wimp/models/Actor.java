@@ -44,10 +44,6 @@ public class Actor {
 	//@JsonIgnore
 	@ManyToMany(mappedBy = "actors")
 	private List<Movie> movies;
-	
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "actors")
-//	private List<Award> awards;
 
 	/**
 	 * @return the movies
