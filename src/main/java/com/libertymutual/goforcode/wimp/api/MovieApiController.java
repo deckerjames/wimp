@@ -72,10 +72,10 @@ public class MovieApiController {
 		Movie movie = movieRepo.findOne(movieId);
 		actor = actorRepo.findOne(actor.getId());		
 		movie.addActor(actor);
-		movieRepo.save(movie);		
+		movieRepo.save(movie);	
 		return movie;
 	}
-		
+		 
 	@PostMapping("")
 	public Movie create(@RequestBody Movie movie) {
 		return movieRepo.save(movie);		

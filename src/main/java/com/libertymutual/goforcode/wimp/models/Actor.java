@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 public class Actor {
-	
+ 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
@@ -121,6 +121,4 @@ public class Actor {
 	public void setActiveSinceYear(Long activeSinceYear) {
 		this.activeSinceYear = activeSinceYear;
 	}	
-	
-	
 }
